@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.example.dogs.R
 
 /**
- * A simple [Fragment] subclass.
+ * Liste des chiens
  */
 class ListDogsFragment : Fragment() {
 
