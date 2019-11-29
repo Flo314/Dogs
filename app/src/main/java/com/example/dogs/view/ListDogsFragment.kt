@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 
 import com.example.dogs.R
+import kotlinx.android.synthetic.main.fragment_list_dogs.*
 
 /**
  * Liste des chiens
@@ -22,5 +24,13 @@ class ListDogsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_list_dogs, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        // Navigation
+        val action = ListDogsFragmentDirections.actionDetailDogFragment()
+        buttonDetail.setOnClickListener {
+            Navigation.findNavController(it).navigate(action)
+        }
+    }
 }
