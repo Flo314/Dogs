@@ -33,14 +33,8 @@ class DetailDogFragment : Fragment() {
         // Retrouver l'argument passé Si les arguments sont non null
         arguments?.let {
             dogUuid = DetailDogFragmentArgs.fromBundle(it).dogUuid
-            textView2.text = dogUuid.toString()
         }
 
-        // Navigation
-        buttonList.setOnClickListener {
-            val action = DetailDogFragmentDirections.actionListDogFragment()
-            Navigation.findNavController(it).navigate(action)
-        }
     }
 
 

@@ -24,15 +24,4 @@ class ListDogsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_list_dogs, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Navigation
-        buttonDetail.setOnClickListener {
-            val action = ListDogsFragmentDirections.actionDetailDogFragment()
-            // passé l'argument
-            action.dogUuid = 5
-            Navigation.findNavController(it).navigate(action)
-        }
-    }
 }
