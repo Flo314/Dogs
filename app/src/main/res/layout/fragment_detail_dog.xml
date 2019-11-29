@@ -4,50 +4,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.DetailDogFragment">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:context=".view.DetailDogFragment">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dogsList"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/dogImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:src="@mipmap/ic_dog_icon"
+                android:scaleType="fitCenter"
+                android:minHeight="200dp"/>
 
             <TextView
-                android:id="@+id/listError"
+                android:id="@+id/dogName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="An error occured while loading data"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_below="@id/dogImage"
+                android:text="Dog name"
+                style="@style/Title"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"/>
 
-            <ProgressBar
-                android:id="@+id/loadingView"
+            <TextView
+                android:id="@+id/dogPurpose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_below="@id/dogName"
+                android:text="Dog purpose"
+                style="@style/Text"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"/>
 
+            <TextView
+                android:id="@+id/dogTemperament"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dogPurpose"
+                android:text="Dog temperament"
+                style="@style/Text"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/dogLifespan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dogTemperament"
+                android:text="Dog lifespan"
+                style="@style/Text"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"/>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </RelativeLayout>
+
 </layout>
