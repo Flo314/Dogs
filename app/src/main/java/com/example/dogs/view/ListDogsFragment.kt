@@ -28,8 +28,10 @@ class ListDogsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Navigation
-        val action = ListDogsFragmentDirections.actionDetailDogFragment()
         buttonDetail.setOnClickListener {
+            val action = ListDogsFragmentDirections.actionDetailDogFragment()
+            // passé l'argument
+            action.dogUuid = 5
             Navigation.findNavController(it).navigate(action)
         }
     }

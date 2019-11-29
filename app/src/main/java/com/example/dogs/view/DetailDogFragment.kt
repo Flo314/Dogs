@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.fragment_detail_dog.*
  */
 class DetailDogFragment : Fragment() {
 
+    private var dogUuid = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,9 +30,15 @@ class DetailDogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Retrouver l'argument passé Si les arguments sont non null
+        arguments?.let {
+            dogUuid = DetailDogFragmentArgs.fromBundle(it).dogUuid
+            textView2.text = dogUuid.toString()
+        }
+
         // Navigation
-        val action = DetailDogFragmentDirections.actionListDogFragment()
         buttonList.setOnClickListener {
+            val action = DetailDogFragmentDirections.actionListDogFragment()
             Navigation.findNavController(it).navigate(action)
         }
     }
