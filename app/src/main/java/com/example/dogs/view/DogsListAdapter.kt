@@ -3,6 +3,7 @@ package com.example.dogs.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogs.R
 import com.example.dogs.model.DogBreed
@@ -30,6 +31,10 @@ class DogsListAdapter(val dogsList: ArrayList<DogBreed>): RecyclerView.Adapter<D
     override fun onBindViewHolder(holder: DogViewHolder, position: Int) {
         holder.view.name.text = dogsList[position].dogBreed
         holder.view.lifespan.text = dogsList[position].lifespan
+        // click pour avoir le detail d'un élément de la liste
+        holder.view.setOnClickListener {
+            Navigation.findNavController(it).navigate(ListDogsFragmentDirections.actionDetailDogFragment())
+        }
     }
 
     class DogViewHolder(var view: View): RecyclerView.ViewHolder(view)
