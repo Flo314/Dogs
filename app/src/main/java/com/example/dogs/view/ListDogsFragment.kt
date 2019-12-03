@@ -38,9 +38,19 @@ class ListDogsFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ListDogViewModel::class.java)
         viewModel.refresh()
 
+        // recyclerview
         dogsList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = dogsListAdapter
+        }
+
+        // refresh vers le bas
+        refreshLayout.setOnRefreshListener {
+            dogsList.visibility = View.GONE
+            listError.visibility = View.GONE
+            loadingView.visibility = View.VISIBLE
+            viewModel.refresh()
+            refreshLayout.isRefreshing = false
         }
 
         observeViewModel()
