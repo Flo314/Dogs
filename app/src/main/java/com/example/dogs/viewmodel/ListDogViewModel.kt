@@ -1,18 +1,21 @@
 package com.example.dogs.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.dogs.model.DogBreed
+import com.example.dogs.model.DogDatabase
 import com.example.dogs.model.DogsApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 /**
  * Appel le service Api pour obtenir les data
  */
-class ListDogViewModel : ViewModel() {
+class ListDogViewModel(application: Application) : BaseViewModel(application) {
 
     private val dogsService = DogsApiService()
     private val disposable = CompositeDisposable()
@@ -43,9 +46,7 @@ class ListDogViewModel : ViewModel() {
                 .subscribeWith(object: DisposableSingleObserver<List<DogBreed>>() {
 
                     override fun onSuccess(dogList: List<DogBreed>) {
-                        dogs.value = dogList
-                        dogsLoadError.value = false
-                        loading.value = false
+                        storeDogsLocally(dogList)
                     }
 
                     override fun onError(e: Throwable) {
@@ -56,6 +57,29 @@ class ListDogViewModel : ViewModel() {
 
                 }))
 
+    }
+
+    private fun dogsRetrived(dogList: List<DogBreed>) {
+        dogs.value = dogList
+        dogsLoadError.value = false
+        loading.value = false
+    }
+
+    // stocker les data dans la DB
+    private fun storeDogsLocally(list: List<DogBreed>) {
+        launch {
+            val dao = DogDatabase(getApplication()).dogDao()
+            // delete en premier pour ne pas polluer la DB par les informations précédentes
+            dao.deleteAllDogs()
+            // *list.toTypedArray() = cela donne une liste et la développe en éléments individuels
+            val result = dao.insertAll(*list.toTypedArray())
+            var i = 0
+            while (i < list.size) {
+                list[i].uuid = result[i].toInt()
+                ++ i
+            }
+            dogsRetrived(list)
+        }
     }
 
     // pour la fuite de mémoire
