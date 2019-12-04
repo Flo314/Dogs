@@ -1,6 +1,8 @@
 package com.example.dogs.view
 
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +13,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.palette.graphics.Palette
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 
 import com.example.dogs.R
 import com.example.dogs.databinding.FragmentDetailDogBinding
+import com.example.dogs.model.DogPalette
 import com.example.dogs.util.getProgessDrawable
 import com.example.dogs.util.loadImage
 import com.example.dogs.viewmodel.DetailDogViewModel
@@ -58,8 +65,33 @@ class DetailDogFragment : Fragment() {
             // on récupère les data et on les mets à jour
             dog?.let {
                 dataBinding.detailDog = dog
+
+                it.imageUrl?.let {
+                    setupBackgroundColor(it)
+                }
             }
         })
+    }
+
+    private fun setupBackgroundColor(url: String) {
+        Glide.with(this)
+            .asBitmap()
+            .load(url)
+            .into(object: CustomTarget<Bitmap>() {
+                override fun onLoadCleared(placeholder: Drawable?) {
+
+                }
+
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    Palette.from(resource)
+                        .generate { palette ->
+                            val intColor = palette?.lightMutedSwatch?.rgb ?: 0
+                            val myPalette = DogPalette(intColor)
+                            dataBinding.palette = myPalette
+                        }
+                }
+
+            })
     }
 
 
