@@ -35,7 +35,9 @@ class DogsListAdapter(val dogsList: ArrayList<DogBreed>): RecyclerView.Adapter<D
         holder.view.lifespan.text = dogsList[position].lifespan
         // click pour avoir le detail d'un élément de la liste
         holder.view.setOnClickListener {
-            Navigation.findNavController(it).navigate(ListDogsFragmentDirections.actionDetailDogFragment())
+            val action = ListDogsFragmentDirections.actionDetailDogFragment()
+            action.dogUuid = dogsList[position].uuid
+            Navigation.findNavController(it).navigate(action)
         }
         holder.view.imageView.loadImage(dogsList[position].imageUrl, getProgessDrawable(holder.view.imageView.context))
     }
