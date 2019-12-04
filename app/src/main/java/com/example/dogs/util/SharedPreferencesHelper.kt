@@ -35,5 +35,8 @@ class SharedPreferencesHelper {
         prefs?.edit(commit = true) {putLong(PREF_TIME, time)}
     }
 
+    // permet de récupérer les données des préférences partagées préf qui sont stockées
+    fun getUpdateTime() = prefs?.getLong(PREF_TIME, 0)
+
 
 }

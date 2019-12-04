@@ -49,7 +49,11 @@ class ListDogsFragment : Fragment() {
             dogsList.visibility = View.GONE
             listError.visibility = View.GONE
             loadingView.visibility = View.VISIBLE
-            viewModel.refresh()
+            /*Chaque fois que j'actualise les informations,
+             j'obtiens le point final et chaque fois que je retourne à l'application,
+             je vais extraire de la base de données. (refreshBypassCache())
+            * */
+            viewModel.refreshBypassCache()
             refreshLayout.isRefreshing = false
         }
 
