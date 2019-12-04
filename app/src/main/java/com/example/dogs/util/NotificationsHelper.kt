@@ -21,7 +21,7 @@ class NotificationsHelper(val context: Context) {
     private val CHANNEL_ID = "Dogs channel id"
     private val NOTIFICATION_ID = 123
 
-    private fun createNotification() {
+     fun createNotification() {
         createNotificationChannel()
 
         val intent = Intent(context, MainActivity::class.java).apply {
@@ -29,7 +29,7 @@ class NotificationsHelper(val context: Context) {
         }
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-        val icon = BitmapFactory.decodeResource(context.resources, R.drawable.dog)
+        val icon = BitmapFactory.decodeResource(context.resources, R.drawable.dogs)
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.dog_icon)
