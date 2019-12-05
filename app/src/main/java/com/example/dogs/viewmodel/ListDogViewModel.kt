@@ -14,6 +14,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
+import java.lang.NumberFormatException
 
 /**
  * Appel le service Api pour obtenir les data
@@ -37,12 +38,27 @@ class ListDogViewModel(application: Application) : BaseViewModel(application) {
 
     // déterminer si on veut les data du réseau ou de la database
     fun refresh() {
+        checkCacheDuration()
         // obtient l'heure de la mise à jour à partir des préférences partagées.
         val updateTime = prefHelper.getUpdateTime()
         if (updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
             fetchFromDatabase()
         } else {
             fetchFromRemote()
+        }
+    }
+
+    // check des preferences des settings
+    private fun checkCacheDuration() {
+        val cachePreference = prefHelper.getCacheDuration()
+
+        // convertie en Int sinon 5min par defaut
+        // test (Toast) : si on met 1000s on sera sur la récup en DB(fetchFromDatabase) si on met 1s on sera sur fetchFromRemote
+        try {
+            val cachePreferenceInt = cachePreference?.toInt() ?: 5 * 60 // la durée est en seconde (Key: preferences.xml)
+            refreshTime = cachePreferenceInt.times(1000 * 1000 * 1000L)
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
         }
     }
 

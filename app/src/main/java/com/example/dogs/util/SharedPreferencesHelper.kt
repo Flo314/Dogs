@@ -38,5 +38,8 @@ class SharedPreferencesHelper {
     // permet de récupérer les données des préférences partagées préf qui sont stockées
     fun getUpdateTime() = prefs?.getLong(PREF_TIME, 0)
 
+    // récupérer les informations que l'utilisateur a définies dans les settings
+    fun getCacheDuration() = prefs?.getString("pref_cache_duration", "")
+
 
 }
