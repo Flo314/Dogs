@@ -31,7 +31,7 @@ fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable
         .into(this)
 }
 
-// il faut cleaner et rebuild le projet pour après pouvoir utiliser dans le layout
+// il faut cleaner et rebuild le projet pour après pouvoir l'utiliser dans le layout
 @BindingAdapter("android:imageUrl")
 fun loadImage(view: ImageView, url: String?) {
     view.loadImage(url, getProgessDrawable(view.context))

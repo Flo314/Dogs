@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="center"
+            android:layout_marginTop="16dp"
             android:imageUrl="@{smsInfo.imageUrl}"/>
 
     </LinearLayout>
