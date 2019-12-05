@@ -18,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -73,6 +74,16 @@ dependencies {
     implementation "com.android.support:palette-v7:$supportVersion"
 
     implementation "androidx.preference:preference:$preferencesVersion"
+
+
+
+    // mise en place de cette librairie pour tester la limite de compilation de méthode + les librairies
+    // pour pouvoir utiliser Multidex
+    // sa compile toujours mais on est pas loin
+    implementation "com.google.firebase:firebase-core:16.0.8"
+
+    // Multidex
+    implementation 'com.android.support:multidex:1.0.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

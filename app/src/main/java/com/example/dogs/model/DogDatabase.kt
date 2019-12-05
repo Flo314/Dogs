@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 /**
  * class pour l'accès à la DB
  */
-@Database(entities = arrayOf(DogBreed::class), version = 1)
+@Database(entities = arrayOf(DogBreed::class), version = 1, exportSchema = false)
 abstract class DogDatabase : RoomDatabase() {
     abstract fun dogDao(): DogDao
 

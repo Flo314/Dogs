@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity() {
                 AlertDialog.Builder(this)
                     .setTitle("Send SMS permission")
                     .setMessage("This app requires access to send an SMS")
-                    .setPositiveButton("Ask me") { dialog, which ->
+                    .setPositiveButton("Ask me") {dialog, which ->
                         requestSmsPermission()
                     }
-                    .setNegativeButton("No") { dialog, which ->
+                    .setNegativeButton("No") {dialog, which ->
                         notifyDetailFragment(false)
                     }
                     .show()
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     private fun notifyDetailFragment(permissionGranted: Boolean) {
         val activeFragment = fragment.childFragmentManager.primaryNavigationFragment
         if (activeFragment is DetailDogFragment) {
-            (activeFragment as DetailDogFragment).onPermissionResult(permissionGranted)
+            activeFragment.onPermissionResult(permissionGranted)
         }
     }
 }
