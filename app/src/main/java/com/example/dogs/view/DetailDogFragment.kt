@@ -112,6 +112,7 @@ class DetailDogFragment : Fragment() {
         inflater.inflate(R.menu.detail_menu, menu)
     }
 
+    // icon du menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_send_sms -> {
@@ -119,7 +120,14 @@ class DetailDogFragment : Fragment() {
                 (activity as MainActivity).checkSmsPermission()
             }
             R.id.action_share -> {
-
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Check out this dog breed")
+                intent.putExtra(Intent.EXTRA_TEXT, "${currentDog?.dogBreed} bred for ${currentDog?.bredFor}")
+                intent.putExtra(Intent.EXTRA_STREAM, currentDog?.imageUrl)
+                // permettre à toutes les applications qui peuvent gérer cette intent
+                // d'avoir la possibilité de transmettre cette information
+                startActivity(Intent.createChooser(intent, "Share with"))
             }
         }
 
