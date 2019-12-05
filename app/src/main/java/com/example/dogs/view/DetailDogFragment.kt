@@ -34,6 +34,7 @@ class DetailDogFragment : Fragment() {
     private var dogUuid = 0
 
     private lateinit var dataBinding: FragmentDetailDogBinding
+    private var sendSmsStrarted = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,7 +104,8 @@ class DetailDogFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_send_sms -> {
-
+                sendSmsStrarted = true
+                (activity as MainActivity).checkSmsPermission()
             }
             R.id.action_share -> {
 
@@ -111,6 +113,11 @@ class DetailDogFragment : Fragment() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    // méthode qui sera appelée quand l'activity sera terminé et qui donnera un résultat
+    fun onPermissionResult(permissionGranted: Boolean) {
+
     }
 
 

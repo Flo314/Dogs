@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.dogs.R
 
+val PERMISSION_SEND_SMS = 234
+
 // fonction qui affiche un spiner quand les images se chargent
 fun getProgessDrawable(context: Context) : CircularProgressDrawable {
     return CircularProgressDrawable(context).apply {
