@@ -1,13 +1,17 @@
 package com.example.dogs.view
 
 
+import android.annotation.TargetApi
 import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.telephony.SmsManager
+import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
@@ -154,8 +158,10 @@ class DetailDogFragment : Fragment() {
                 AlertDialog.Builder(it)
                     .setView(dialogBinding.root)
                     .setPositiveButton("Send SMS") { dialog, which ->
-                        if (dialogBinding.smsDestination.text.isNullOrEmpty()) {
+                        // attention car sans le ! la fonction send sms ne marche pas
+                        if (!dialogBinding.smsDestination.text.isNullOrEmpty()) {
                             smsInfo.to = dialogBinding.smsDestination.text.toString()
+                            Log.i("INFO", smsInfo.to)
                             sendSms(smsInfo)
                         }
                     }
@@ -174,6 +180,7 @@ class DetailDogFragment : Fragment() {
         val pi = PendingIntent.getActivity(context, 0, intent, 0)
         val sms = SmsManager.getDefault()
         sms.sendTextMessage(smsInfo.to, null, smsInfo.text, pi, null)
+        Toast.makeText(context, "SMS send", Toast.LENGTH_SHORT).show()
     }
 
 
